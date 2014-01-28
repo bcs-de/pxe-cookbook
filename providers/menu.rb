@@ -30,7 +30,7 @@ def write_default
   pxe_sections.uniq!
 
   # build section menu
-  template "#{node[:tftp][:dir]}/#{new_resource.section}/pxelinux.cfg/default" do
+  template "#{node[:tftp][:directory]}/#{new_resource.section}/pxelinux.cfg/default" do
     source "default.erb"
     cookbook "pxe"
     owner "root"
@@ -44,7 +44,7 @@ def write_default
   end
 
   #  write main menu
-  template "#{node[:tftp][:dir]}/pxelinux.cfg/default" do
+  template "#{node[:tftp][:directory]}/pxelinux.cfg/default" do
     source "main.erb"
     cookbook "pxe"
     owner "root"
@@ -57,7 +57,7 @@ end
 
 
 action :add do
-  directory "#{node[:tftp][:dir]}/#{new_resource.section}/pxelinux.cfg" do
+  directory "#{node[:tftp][:directory]}/#{new_resource.section}/pxelinux.cfg" do
     recursive true
     owner "root"
     group "root"
@@ -73,7 +73,7 @@ action :add do
     append << new_resource.append 
   end 
 
-  template "#{node[:tftp][:dir]}/#{new_resource.section}/pxelinux.cfg/#{new_resource.name}" do
+  template "#{node[:tftp][:directory]}/#{new_resource.section}/pxelinux.cfg/#{new_resource.name}" do
     source "menu_item.erb"
     cookbook "pxe"
     owner "root"
@@ -96,7 +96,7 @@ end
 
 
 action :remove do 
-  file "#{node[:tftp][:dir]}/#{new_resource.section}/pxelinux.cfg/#{new_resource.name}" do
+  file "#{node[:tftp][:directory]}/#{new_resource.section}/pxelinux.cfg/#{new_resource.name}" do
     action :delete
     notifies :send_notification, new_resource, :immediately
   end

@@ -20,7 +20,7 @@
 
 include_recipe 'tftp::server'
 
-tftp_dir = node[:tftp][:dir]
+tftp_dir = node[:tftp][:directory]
 syslinux_dir = node[:syslinux][:dir]
 
 node[:pxe][:packages].each do |pkg|
@@ -39,6 +39,6 @@ directory "#{tftp_dir}/pxelinux.cfg" do
   mode 0755
 end
 
-template "#{node[:tftp][:dir]}/pxe.cfg" do
+template "#{tftp_dir}/pxe.cfg" do
   mode 0644
 end
